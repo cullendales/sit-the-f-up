@@ -4,6 +4,7 @@ import cv2
 import time
 import math as m
 import mediapipe as mp
+import os
 
 
 def findDistance(x1, y1, x2, y2):
@@ -131,7 +132,7 @@ def main():
             cv2.putText(frame, time_string_bad, (10, h - 20), font, 0.9, red, 2)
         
         if bad_time > 10:
-            print("Sit the fuck up")
+            os.system('say -v Samantha "Sit the fuck up"')
             time.sleep(5)
 
     
