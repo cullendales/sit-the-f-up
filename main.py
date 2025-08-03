@@ -22,10 +22,14 @@ def findAngle(x1, y1, x2, y2):
 
     return degree
 
-def main():
+def notify_macos(title, message):
+    os.system(f'''osascript -e 'display notification "{message}" with title "{title}"' ''')
+
+def side_angle(choice):
 
     good_frames = 0
     bad_frames  = 0
+    count = 1
     
     font = cv2.FONT_HERSHEY_SIMPLEX
 
@@ -61,6 +65,12 @@ def main():
 
         lm = keypoints.pose_landmarks
         lmPose  = mp_pose.PoseLandmark
+
+        # adds in error message for landmarks not being able to be detected. Usually lighting.
+        if not lm:
+            print("The camera cannot detect your body landmarks accurately. This may be due to lighting or camera position.")
+            print("Please retry the program again.")
+            return 
  
         l_shldr_x = int(lm.landmark[lmPose.LEFT_SHOULDER].x * w)
         l_shldr_y = int(lm.landmark[lmPose.LEFT_SHOULDER].y * h)
@@ -131,13 +141,68 @@ def main():
             time_string_bad = 'Bad Posture Time : ' + str(round(bad_time, 1)) + 's'
             cv2.putText(frame, time_string_bad, (10, h - 20), font, 0.9, red, 2)
         
-        if bad_time > 10:
-            os.system('say -v Samantha "Sit the fuck up"')
-            time.sleep(5)
+        # added in two ways for it to respond. Will add a random chance of or mod or sth for it to have unique dialogue every so often
+        # current system doesnt work as count doesnt 
+        if bad_time > 12:
+            if choice == "1":
+                if count % 4 != 0:
+                    count += 1
+                    os.system('say -v Samantha "I love my wifey!"')
+                    notify_macos("Posture Monitoring", "Sit the fuck up!")
+                    time.sleep(7)
+                else:
+                    count += 1
+                    os.system('say -v Samantha "Sit the fuck up, you little bitch!"')
+                    notify_macos("Posture Monitoring", "Sit the fuck up!")
+                    time.sleep(7)
+            else:
+                count += 1
+                if count % 4 != 0:
+                    os.system('say -v Daniel "Please sit up. Pretty Please."')
+                    notify_macos("Posture Monitoring", "Please sit up. Pwetty Pwease.")
+                else:
+                    os.system('say -v Daniel "You look so good when you sit. Please do it for me."')
+                    notify_macos("Posture Monitoring", "Please sit up. Pretty Please.")
+                time.sleep(7)
 
-    
     cap.release()
     cv2.destroyAllWindows()
+    
+    
+def main():
+    input_flag = False
+    print("Welcome to the Posture Monitoring System!")
+    print("First, are you using a camera aiming towards your side or your face?")
+    while not input_flag:
+        camera_angle = input("Enter 1 for side or 2 for front: ")
+        if camera_angle == "1" or camera_angle == "2":
+            input_flag = True
+            print(f"Thank you!")
+        else:
+            print(f"Sorry, {camera_angle} is not an available option. Please re-enter 1 or 2.")
+
+    print("Next, the program comes in two modes: Motivationally Mean or Sickingly Sweet")
+
+    # can include some extra dialogue here of the mode introducing itself make it sorta rude or casual for 1
+    input_flag = False
+    while not input_flag:      
+        choice = input("Enter 1 for Motivationally Mean or 2 for Sickingly Sweet: ")
+        if choice == "1":
+            input_flag = True
+            print(f"You chose Motivationally Mean.")
+        elif choice == "2":
+            input_flag = True
+            print(f"You chose Sickingly Sweet.")
+        else:
+            print(f"Sorry, {choice} is not an available option. Please re-enter 1 or 2.")
+
+    if camera_angle == "1":
+        side_angle(choice)
+    if choice == "2":
+        print("Front angle is coming soon. Only side angle is fully functional currently.")
 
 if __name__ == "__main__":
     main()
+
+
+    
