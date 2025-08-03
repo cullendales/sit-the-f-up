@@ -1,6 +1,6 @@
 # Sit the F Up - The motivational, posture-correcting program!
 ## About
-Tired of tech neck? Well here is your chance to correct that posture! Sit-the-f-up motivates you with a very ungentle touch to sit up and correct your posture. No more slouching over the computer all day! This is the beginning of your health journey. Enjoy Sit the F Up - with a new sickingly sweet version included for all you people who don't like being yelled at.
+Tired of tech neck? Well here is your chance to correct that posture! Sit the F up motivates you with a very ungentle touch to sit up and correct your posture. No more slouching over the computer all day! This is the beginning of your health journey. Enjoy Sit the F Up - with a new sickingly sweet version included for all you people who don't like being yelled at.
 
 
 ## Usage
