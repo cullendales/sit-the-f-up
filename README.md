@@ -15,7 +15,7 @@ Tired of tech neck? Well here is your chance to correct that posture! Sit the F 
 ## Roadmap
 - [x] Make side camera posture detection
 - [x] Create two personalities for motivation
-- [ ] Add front camera angle
+- [x] Add front camera angle
 - [ ] Include SQL database for tracking date, time spent, bad posture instances, and score
 - [ ] Create leaderboard and comparison to movie character posture
 
